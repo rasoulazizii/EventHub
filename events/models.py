@@ -4,7 +4,7 @@ from core.models import AbstractModel
 
 User = get_user_model()
 
-class Category(models.Model):
+class Category(AbstractModel):
     name = models.CharField(max_length=70)
     parent = models.ForeignKey(
         'self',
@@ -25,7 +25,8 @@ class Event(AbstractModel):
     organizer = models.ForeignKey(User, on_delete=models.PROTECT, related_name='organizer')
     category = models.ForeignKey(Category, on_delete=models.PROTECT, related_name='Event')
     info = models.TextField()
-    dates = models.DateTimeField()
+    start_dates = models.DateTimeField()
+    end_dates = models.DateTimeField()
     location = models.CharField(max_length=220)
     status = models.CharField(max_length=1, choices=CHOICES, default='d')
 
