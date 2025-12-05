@@ -5,8 +5,16 @@ from core.models import AbstractModel
 User = get_user_model()
 
 class Category(models.Model):
-    pass
-
+    name = models.CharField(max_length=70)
+    parent = models.ForeignKey(
+        'self',
+        on_delete=models.PROTECT,
+        related_name='children',
+        null=True,
+        blank=True
+    )
+    def __str__(self):
+        return self.name
 
 class Event(AbstractModel):
     CHOICES = [
