@@ -29,3 +29,5 @@ class Order(AbstractModel):
     quantity = models.PositiveIntegerField()
     total_price = models.DecimalField(max_digits=10, decimal_places=2)
     status = models.CharField(max_length=5, choices=CHOICES, default='pen')
+
+
