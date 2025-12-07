@@ -7,3 +7,21 @@ class TicketTypeViewSet(viewsets.ModelViewSet):
     serializer_class = TicketTypeSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
+class OrderViewSet(viewsets.ModelViewSet):
+    serializer_class = OrderSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        return Order.objects.filter(buyer=self.request.user)
+
+    def perform_create(self, serializer):
+        ticket_type = serializer.validated_data['ticket_type']
+        quantity = serializer.validated_data['quantity']
+        price = ticket_type.price
+        total = price * quantity
+        
+        serializer.save(
+            buyer=self.request.user,
+            total_price=total,
+            status='pai'
+        )
