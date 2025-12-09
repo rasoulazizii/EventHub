@@ -46,6 +46,8 @@ INSTALLED_APPS = [
 
     #rest_framework
     'rest_framework',
+    'drf_spectacular',
+    'django_filters',
 
     #apps
     'accounts',
@@ -64,6 +66,19 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+    'DEFAULT_FILTER_BACKENDS': [
+        'django_filters.rest_framework.DjangoFilterBackend',
+        'rest_framework.filters.SearchFilter',
+        'rest_framework.filters.OrderingFilter',
+    ],
+}
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'EventHub API',
+    'DESCRIPTION': 'A Professional Event Booking System',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
 }
 
 from datetime import timedelta

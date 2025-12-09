@@ -11,6 +11,7 @@ class EventViewSet(viewsets.ModelViewSet):
     queryset = Event.objects.all()
     serializer_class = EventSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-
-    def perform_create(self, serializer):
-        serializer.save(organizer=self.request.user)
+    filterset_fields = ['category', 'organizer', 'status']
+    search_fields = ['info', 'location', 'category__name']
+    ordering_fields = ['start_date', 'created_at']
+    ordering = ['-created_at']
